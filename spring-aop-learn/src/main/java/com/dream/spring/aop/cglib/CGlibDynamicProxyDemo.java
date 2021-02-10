@@ -2,7 +2,6 @@ package com.dream.spring.aop.cglib;
 
 import com.dream.spring.aop.service.EchoService;
 import com.dream.spring.aop.service.impl.DefaultEchoService;
-import org.springframework.cglib.proxy.Callback;
 import org.springframework.cglib.proxy.Enhancer;
 import org.springframework.cglib.proxy.MethodInterceptor;
 import org.springframework.cglib.proxy.MethodProxy;

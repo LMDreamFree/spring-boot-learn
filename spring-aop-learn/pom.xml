@@ -28,7 +28,7 @@
     </dependency>
     <dependency>
       <groupId>org.aspectj</groupId>
-      <artifactId>aspectjrt</artifactId>
+      <artifactId>aspectjweaver</artifactId>
       <version>1.9.6</version>
     </dependency>
   </dependencies>
