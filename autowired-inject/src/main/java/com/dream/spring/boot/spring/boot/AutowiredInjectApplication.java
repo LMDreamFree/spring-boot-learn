@@ -53,8 +53,8 @@ public class AutowiredInjectApplication {
         beanPostProcessor.setAutowiredAnnotationTypes(annotations);
         return beanPostProcessor;
     }*/
-    /**期待输出 string **/
-    @Bean(name = AUTOWIRED_ANNOTATION_PROCESSOR_BEAN_NAME)
+    /**期待输出 string  只有@Injection 生效 **/
+   @Bean(name = AUTOWIRED_ANNOTATION_PROCESSOR_BEAN_NAME)
     public static AutowiredAnnotationBeanPostProcessor beanPostProcessor(){
         AutowiredAnnotationBeanPostProcessor beanPostProcessor = new AutowiredAnnotationBeanPostProcessor();
         Set<Class<? extends Annotation>> annotations = new HashSet<>();
@@ -62,6 +62,15 @@ public class AutowiredInjectApplication {
         beanPostProcessor.setAutowiredAnnotationTypes(annotations);
         return beanPostProcessor;
     }
+    /*// 两种都生效
+    @Bean
+    public static AutowiredAnnotationBeanPostProcessor beanPostProcessorAll(){
+        AutowiredAnnotationBeanPostProcessor beanPostProcessor = new AutowiredAnnotationBeanPostProcessor();
+        Set<Class<? extends Annotation>> annotations = new HashSet<>();
+        annotations.add(Injection.class);
+        beanPostProcessor.setAutowiredAnnotationTypes(annotations);
+        return beanPostProcessor;
+    }*/
     /**
      * 期待输出 string user
      * static 提升bean注册优先级
