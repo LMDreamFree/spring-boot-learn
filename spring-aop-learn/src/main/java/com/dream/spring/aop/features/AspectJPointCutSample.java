@@ -1,6 +1,7 @@
 package com.dream.spring.aop.features;
 
 import com.dream.spring.aop.features.aspect.AspectJConfiguration;
+import com.dream.spring.aop.features.aspect.OrderedAspectJConfiguration;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
@@ -16,7 +17,8 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 public class AspectJPointCutSample {
     public static void main(String[] args) {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-        context.register(AspectJPointCutSample.class, AspectJConfiguration.class);
+        context.register(AspectJPointCutSample.class, AspectJConfiguration.class,
+                OrderedAspectJConfiguration.class);
         context.refresh();
 
         AspectJPointCutSample sample = context.getBean(AspectJPointCutSample.class);

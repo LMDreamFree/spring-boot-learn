@@ -7,6 +7,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.core.annotation.Order;
 
 /**
  * @author lim
@@ -15,7 +16,8 @@ import org.aspectj.lang.reflect.MethodSignature;
  * @desc TODO
  */
 @Aspect
-public class AspectJConfiguration {
+@Order
+public class OrderedAspectJConfiguration {
 
     // PointCut 只做判断不做执行动作
     @Pointcut("execution(public * *(..))") // 拦截任何public方法
@@ -25,13 +27,6 @@ public class AspectJConfiguration {
 
     @Before(value = "pointCut()")  // Joint Point 拦截动作
     public void before(JoinPoint joinPoint) {
-        System.out.println("@Before 拦截 " + joinPoint.getSignature().getName());
-    }
-
-    @Around(value = "pointCut()")
-    public Object around(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
-        MethodSignature methodSignature = (MethodSignature) proceedingJoinPoint.getSignature();
-        System.out.println("@Around(value = \"pointCut()\")" + methodSignature.getName());
-        return proceedingJoinPoint.proceed();
+        System.out.println("@Order @Before 拦截 " + joinPoint.getSignature().getName());
     }
 }

@@ -16,6 +16,7 @@
 
     <bean id="echoServiceMethodInterceptor" class="com.dream.spring.aop.interceptor.EchoServiceMethodInterceptor"/>
 
+
     <!--ProxyFactoryBean-->
     <bean id="echoServiceProxyFactoryBean" class="org.springframework.aop.framework.ProxyFactoryBean">
         <!-- 切记ref value的区别 -->
@@ -25,5 +26,18 @@
         </property>
     </bean>
 
+    <bean id="aspectXmlConfig" class="com.dream.spring.aop.features.aspect.AspectJXmlConfiguration"/>
+    <!--xml aspect -->
+    <aop:config>
+        <aop:aspect id="AspectXmlConfig" ref="aspectXmlConfig">
+            <!--pointCut-->
+            <aop:pointcut id="pointCute" expression="execution(public * *(..))"/>
 
+            <aop:around method="around" pointcut-ref="pointCute"/>
+            <!--@Before-->
+            <aop:before method="before" pointcut-ref="pointCute"/>
+            <aop:before method="before" pointcut="execution(public * *(..))"/>
+        </aop:aspect>
+
+    </aop:config>
 </beans>
