@@ -1,6 +1,7 @@
 package com.dream.spring.aop.features;
 
 import com.dream.spring.aop.features.aspect.AspectJConfiguration;
+import org.springframework.aop.AfterReturningAdvice;
 import org.springframework.aop.MethodBeforeAdvice;
 import org.springframework.aop.aspectj.annotation.AspectJProxyFactory;
 import org.springframework.util.ObjectUtils;
@@ -30,6 +31,15 @@ public class AspectJAnnotationUsingAPIDemo {
             public void before(Method method, Object[] args, Object target) throws Throwable {
                 if (ObjectUtils.nullSafeEquals("put",method.getName()) && args.length == 2){
                     System.out.printf("当前存放的Key : %s , Value : %s %n",args[0],args[1]);
+                }
+            }
+        });
+        // 添加AfterReturn
+        proxyFactory.addAdvice(new AfterReturningAdvice() {
+            @Override
+            public void afterReturning(Object returnValue, Method method, Object[] args, Object target) throws Throwable {
+                if (ObjectUtils.nullSafeEquals("put",method.getName()) && args.length == 2){
+                    System.out.printf("afterReturning():当前存放的Key : %s , Value : %s %n",args[0],args[1]);
                 }
             }
         });

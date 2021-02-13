@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/aop
+    https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <bean id="echoService" class="com.dream.spring.aop.service.impl.DefaultEchoService"/>
+
+    <bean id="echoServiceMethodInterceptor" class="com.dream.spring.aop.interceptor.EchoServiceMethodInterceptor"/>
+
+    <!-- <bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+         <property name="beanNames" value="echoService"/>
+         <property name="interceptorNames">
+             <value>
+                 echoServiceMethodInterceptor
+             </value>
+         </property>
+     </bean>-->
+
+    <bean id="echoServicePointCut" class="com.dream.spring.aop.features.EchoServicePointCut">
+        <constructor-arg value="hello"/>
+        <constructor-arg value="com.dream.spring.aop.service.EchoService"/>
+    </bean>
+    <bean class="org.springframework.aop.support.DefaultPointcutAdvisor">
+        <constructor-arg ref="echoServicePointCut"/>
+        <constructor-arg ref="echoServiceMethodInterceptor"/>
+    </bean>
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"/>
+        <!--<property name="beanName" value="echoService"/>
+        <property name="interceptorNames">
+            <value>
+                echoServiceMethodInterceptor
+            </value>
+        </property>-->
+</beans>

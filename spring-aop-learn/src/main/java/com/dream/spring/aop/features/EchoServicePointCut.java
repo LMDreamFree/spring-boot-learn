@@ -13,13 +13,14 @@ import java.lang.reflect.Method;
 public class EchoServicePointCut extends StaticMethodMatcherPointcut {
 
     private final  String methodName;
+    private final Class targetClass;
 
     public EchoServicePointCut(String methodName, Class targetClass) {
         this.methodName = methodName;
         this.targetClass = targetClass;
     }
 
-    private final Class targetClass;
+
 
 
     @Override

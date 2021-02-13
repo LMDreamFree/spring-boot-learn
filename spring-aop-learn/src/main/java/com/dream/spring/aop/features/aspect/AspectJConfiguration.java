@@ -2,10 +2,7 @@ package com.dream.spring.aop.features.aspect;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 
 /**
@@ -33,5 +30,10 @@ public class AspectJConfiguration {
         MethodSignature methodSignature = (MethodSignature) proceedingJoinPoint.getSignature();
         System.out.println("@Around(value = \"pointCut()\")" + methodSignature.getName());
         return proceedingJoinPoint.proceed();
+    }
+
+    @After("pointCut()")
+    public void  after(){
+        System.out.println("@After(value = \"pointCut()\")");
     }
 }
