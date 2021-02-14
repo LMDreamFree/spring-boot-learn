@@ -1,6 +1,7 @@
 package com.dream.spring.boot.locator;
 
 import com.dream.spring.boot.source.ExternalProperties;
+import com.dream.spring.boot.utils.PropertiesSourceHelper;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
 import org.springframework.boot.env.PropertiesPropertySourceLoader;
 import org.springframework.cloud.bootstrap.config.PropertySourceLocator;
@@ -20,20 +21,15 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 /**
- * <p>
- * TODO
- * </p>
- *
  * @author lim
  * @date 2020/7/25 17:16
  * @className ExternalPropertiesLoader
+ * @end spring cloud 2020.0.0
  */
 @Order(Ordered.HIGHEST_PRECEDENCE + 100)
 public class ExternalPropertiesLoader implements PropertySourceLocator {
 
-    public final PropertySourceFactory DEFAULT_PROPERTY_SOURCE_FACTORY = new DefaultPropertySourceFactory();
 
-    public final DefaultResourceLoader RESOURCE_LOADER = new DefaultResourceLoader();
 
     private final ExternalProperties externalProperties;
 
@@ -47,44 +43,8 @@ public class ExternalPropertiesLoader implements PropertySourceLocator {
                 "EXTERNAL_SOURCE");
         externalProperties.setEnvironment(environment);
         String fileName = environment.getProperty("source.fileName");
-        PropertySource<?> properties = loadProperties(fileName);
-       // MapPropertySource mapPropertySource = new MapPropertySource("external_map", properties);
+        PropertySource<?> properties = PropertiesSourceHelper.loadProperties(fileName);
         composite.addFirstPropertySource(properties);
         return composite;
-    }
-
-    private PropertySource<?> loadProperties(String sourceName) {
-
-        Resource resource = RESOURCE_LOADER.getResource(sourceName);
-
-        PropertiesPropertySourceLoader loader = new PropertiesPropertySourceLoader();
-        try {
-            EncodedResource encodedResource = new EncodedResource(resource, StandardCharsets.UTF_8);
-            List<PropertySource<?>> load = loader.load(sourceName, encodedResource.getResource());
-            PropertiesFactoryBean propertiesFactoryBean = new PropertiesFactoryBean();
-            PropertySource<?> propertySource = DEFAULT_PROPERTY_SOURCE_FACTORY.createPropertySource(sourceName, encodedResource);
-            propertiesFactoryBean.setLocation(encodedResource.getResource());
-            propertiesFactoryBean.afterPropertiesSet();
-            propertiesFactoryBean.getObject();
-            return propertySource;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    private Map<String, Object> propertiesToMap(Properties properties) {
-        Map<String, Object> result = new HashMap<>(16);
-        Enumeration<String> keys = (Enumeration<String>) properties.propertyNames();
-        while (keys.hasMoreElements()) {
-            String key = keys.nextElement();
-            Object value = properties.getProperty(key);
-            if (value != null) {
-                result.put(key, ((String) value).trim());
-            } else {
-                result.put(key, null);
-            }
-        }
-        return result;
     }
 }
