@@ -1,2 +1,3 @@
 org.springframework.cloud.bootstrap.BootstrapConfiguration=com.dream.spring.boot.configuration.ExternalSourceAutoConfiguration
 org.springframework.boot.env.EnvironmentPostProcessor=com.dream.spring.boot.environment.postprocessor.CustomizationEnvironmentPostProcessor
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.dream.spring.boot.endpoint.ArchitectureEndpointAutoConfiguration
