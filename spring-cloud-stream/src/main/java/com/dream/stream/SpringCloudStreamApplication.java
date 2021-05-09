@@ -10,6 +10,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.messaging.SubscribableChannel;
 import org.springframework.util.AlternativeJdkIdGenerator;
 import org.springframework.util.IdGenerator;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Random;
 import java.util.concurrent.BlockingQueue;
@@ -23,9 +26,11 @@ import java.util.function.Supplier;
  * @author: lim
  * @date: 2021/5/9 8:21
  */
+@RestController
 @EnableDiscoveryClient
 @SpringBootApplication
 public class SpringCloudStreamApplication {
+
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     public static final IdGenerator GENERATOR = new AlternativeJdkIdGenerator();
@@ -47,6 +52,11 @@ public class SpringCloudStreamApplication {
         SpringApplication.run(SpringCloudStreamApplication.class, args);
     }
 
+    @GetMapping(value = "/send/{message}")
+    public String send(@PathVariable(value = "message") String message){
+        boolean result = streamBridge.send("test1", message);
+        return result + " : " + message;
+    }
     @Bean
     public Consumer<String> sink1() {
         return message -> {
