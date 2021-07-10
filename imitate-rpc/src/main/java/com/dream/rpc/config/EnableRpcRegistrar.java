@@ -108,8 +108,7 @@ public final class  EnableRpcRegistrar implements ImportBeanDefinitionRegistrar,
                 for (MethodMetadata md : methodMetadata) {
                     Method method = md.method();
                     String requestUrl = md.template().url();
-                    Class<?> returnType = method.getReturnType();
-                    ClientInvocationHandler invocationHandler = new ClientInvocationHandler(requestUrl, serviceName, returnType);
+                    ClientInvocationHandler invocationHandler = new ClientInvocationHandler(requestUrl, serviceName);
                     MethodRegistry.addRegistry(method,
                             invocationHandler);
                     factoryBean.setInvocationHandler(invocationHandler);

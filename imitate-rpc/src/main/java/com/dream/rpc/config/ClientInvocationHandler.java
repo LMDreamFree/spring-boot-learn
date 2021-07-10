@@ -22,8 +22,6 @@ public class ClientInvocationHandler implements InvocationHandler {
 
     private final String serviceName;
 
-    private final Class<?> returnType;
-
     private BeanFactory beanFactory;
 
     private RestTemplate restTemplate = new RestTemplate();
@@ -36,14 +34,14 @@ public class ClientInvocationHandler implements InvocationHandler {
         this.beanFactory = beanFactory;
     }
 
-    public ClientInvocationHandler(String requestUrl, String serviceName, Class<?> returnType) {
+    public ClientInvocationHandler(String requestUrl, String serviceName) {
         this.requestUrl = requestUrl;
         this.serviceName = serviceName;
-        this.returnType = returnType;
     }
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        Class<?> returnType = method.getReturnType();
         DiscoveryClient discoveryClient = beanFactory.getBean(DiscoveryClient.class);
         List<ServiceInstance> instances = discoveryClient.getInstances(serviceName);
         Optional<ServiceInstance> any = instances.stream().findAny();
