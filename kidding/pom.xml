@@ -5,10 +5,10 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.2</version>
+        <version>2.5.4</version>
     </parent>
     <groupId>com.dream</groupId>
-    <artifactId>imitate-rpc</artifactId>
+    <artifactId>kidding</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>rpc</name>
     <description>Demo project for Spring Boot</description>
