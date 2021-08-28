@@ -7,6 +7,7 @@ import org.springframework.boot.env.PropertiesPropertySourceLoader;
 import org.springframework.core.env.PropertySource;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.DefaultPropertySourceFactory;
 import org.springframework.core.io.support.EncodedResource;
 import org.springframework.core.io.support.PropertySourceFactory;
@@ -31,7 +32,7 @@ public abstract class PropertiesSourceHelper {
 
     private static final PropertySourceFactory DEFAULT_PROPERTY_SOURCE_FACTORY = new DefaultPropertySourceFactory();
 
-    private static final DefaultResourceLoader RESOURCE_LOADER = new DefaultResourceLoader();
+    private static final ResourceLoader RESOURCE_LOADER = new DefaultResourceLoader();
 
     /**
      * @author: lim
