@@ -11,6 +11,7 @@ import org.springframework.core.io.support.DefaultPropertySourceFactory;
 import org.springframework.core.io.support.EncodedResource;
 import org.springframework.core.io.support.PropertySourceFactory;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -54,8 +55,8 @@ public abstract class PropertiesSourceHelper {
             return propertySource;
         } catch (IOException e) {
             LOGGER.error("load resource failed.",e.getMessage(),e);
+            throw new RuntimeException(e.getMessage(),e);
         }
-        return null;
     }
 
     public static Map<String, Object> propertiesToMap(Properties properties) {
