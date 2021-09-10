@@ -5,7 +5,7 @@ import java.lang.management.OperatingSystemMXBean;
 
 /**
  *
- * @author @author <a href="https://github.com/LMDreamFree">Dream</a>
+ * @author <a href="https://github.com/LMDreamFree">Dream</a>
  * @date 2021/5/16 20:55
  * @className Customized
  */
