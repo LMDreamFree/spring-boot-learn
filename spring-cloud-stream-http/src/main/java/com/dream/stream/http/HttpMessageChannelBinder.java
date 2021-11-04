@@ -1,15 +1,11 @@
 package com.dream.stream.http;
 
 import cn.hutool.http.HttpRequest;
-import cn.hutool.http.HttpUtil;
 import okhttp3.*;
 import org.springframework.cloud.stream.binder.*;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.SubscribableChannel;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * <p>
