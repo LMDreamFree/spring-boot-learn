@@ -1,0 +1,1 @@
+httpStream : com.dream.stream.http.config.HttpMessageChannelBinderAutoConfiguration
