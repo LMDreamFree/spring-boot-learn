@@ -1,4 +1,4 @@
-package com.dream.stream.http.config;
+package com.dream.stream.config;
 
 import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;
@@ -68,6 +68,7 @@ public class OkHttpClientConfig {
         public TrustAllHostnames() {
         }
 
+        @Override
         public boolean verify(String s, SSLSession sslSession) {
             return true;
         }
@@ -76,13 +77,13 @@ public class OkHttpClientConfig {
     public static class DisableValidationTrustManager implements X509TrustManager {
         public DisableValidationTrustManager() {
         }
-
+        @Override
         public void checkClientTrusted(X509Certificate[] x509Certificates, String s) throws CertificateException {
         }
-
+        @Override
         public void checkServerTrusted(X509Certificate[] x509Certificates, String s) throws CertificateException {
         }
-
+        @Override
         public X509Certificate[] getAcceptedIssuers() {
             return new X509Certificate[0];
         }

@@ -1,0 +1,2 @@
+#httpStream : com.dream.stream.config.HttpMessageChannelBinderAutoConfiguration
+redis : com.dream.stream.config.RedisMessageChannelBinderAutoConfiguration

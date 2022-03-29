@@ -1,12 +1,11 @@
-package com.dream.stream.http.config;
+package com.dream.stream.config;
 
-import com.dream.stream.http.HttpMessageChannelBinder;
-import okhttp3.OkHttpClient;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.dream.stream.redis.RedisMessageChannelBinder;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.cloud.stream.binder.Binder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.core.RedisTemplate;
 
 /**
  * @author lim
@@ -15,10 +14,10 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @ConditionalOnMissingBean(Binder.class)
-public class HttpMessageChannelBinderAutoConfiguration {
+public class RedisMessageChannelBinderAutoConfiguration {
 
     @Bean
-    public HttpMessageChannelBinder httpMessageChannelBinder(final OkHttpClient okHttpClient) {
-        return new HttpMessageChannelBinder(okHttpClient);
+    public RedisMessageChannelBinder httpMessageChannelBinder(final RedisTemplate redisTemplate) {
+        return new RedisMessageChannelBinder(redisTemplate);
     }
 }

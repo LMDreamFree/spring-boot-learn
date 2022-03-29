@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.context.annotation.Bean;
+import org.springframework.messaging.Message;
 import org.springframework.messaging.SubscribableChannel;
 import org.springframework.util.AlternativeJdkIdGenerator;
 import org.springframework.util.IdGenerator;
@@ -14,14 +15,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Random;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 /**
- * {@link https://github.com/spring-cloud/spring-cloud-stream-samples/blob/main/multi-functions-samples/multi-functions-rabbit/src/main/java/demo/MultipleFunctionsApplication.java}
+ * {@link <a href="https://github.com/spring-cloud/spring-cloud-stream-samples/blob/main/multi-functions-samples/multi-functions-rabbit/src/main/java/demo/MultipleFunctionsApplication.java">...</a>}
  * <p>spring cloud stream demo</p>
  * @author: lim
  * @date: 2021/5/9 8:21
@@ -76,6 +76,7 @@ public class SpringCloudStreamApplication {
             System.err.println("Received message " + message);
         };
     }
+
 
     @Bean
     public Supplier<String> source1() {
