@@ -2,19 +2,25 @@ package com.dream.stream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.stream.annotation.EnableBinding;
+import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.function.StreamBridge;
+import org.springframework.cloud.stream.messaging.Sink;
+import org.springframework.cloud.stream.messaging.Source;
 import org.springframework.context.annotation.Bean;
 import org.springframework.messaging.Message;
-import org.springframework.messaging.SubscribableChannel;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.util.AlternativeJdkIdGenerator;
 import org.springframework.util.IdGenerator;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadLocalRandom;
@@ -29,6 +35,7 @@ import java.util.function.Supplier;
 @RestController
 @EnableDiscoveryClient
 @SpringBootApplication
+@EnableBinding({Source.class, Sink.class})
 public class SpringCloudStreamApplication {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
@@ -41,11 +48,23 @@ public class SpringCloudStreamApplication {
 
     private final StreamBridge streamBridge;
 
-    private final SubscribableChannel messageChannel;
+    @Autowired
+    private Source source;
 
-    public SpringCloudStreamApplication(StreamBridge streamBridge, SubscribableChannel messageChannel) {
+    @GetMapping(value = "/send")
+    public String stream(){
+        Message<String> message = MessageBuilder.withPayload("Hello World" + LocalDateTime.now()).build();
+        source.output().send(message);
+        return message.toString();
+    }
+
+    @StreamListener(target = Sink.INPUT)
+    public void  listener(Message<String> message){
+        System.err.println(message);
+    }
+
+    public SpringCloudStreamApplication(StreamBridge streamBridge) {
         this.streamBridge = streamBridge;
-        this.messageChannel = messageChannel;
     }
 
     public static void main(String[] args) {
